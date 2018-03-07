@@ -38,3 +38,7 @@ $ sudo docker run \
     -e 'COUNTRY=[country code]' \
     -e 'PNET=[local network]' \
     rundqvist/docker-ipvanish-tinyproxy
+```
+
+# Use
+Proxy your traffic through [docker server ip]:8888 or use --net container:vpn to containers who shall tunnel traffic.
