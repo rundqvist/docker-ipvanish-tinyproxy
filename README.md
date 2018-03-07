@@ -15,7 +15,8 @@ A very tiny VPN client based on Alpine Linux.
 |----------|-------|
 | USERNAME | Your IPVanish username |
 | PASSWORD | Your IPVanish password |
-| COUNTRY | ISO 3166-1 alpha-2 country code supported by IPVanish (see [https://www.ipvanish.com/software/configs/]) |
+| COUNTRY | ISO 3166-1 alpha-2 country code supported by IPVanish (see https://www.ipvanish.com/software/configs/) |
+| PNET | Add your local network like '192.168.0.0' to make container network accessible |
 
 ## Build
 ```
@@ -35,5 +36,5 @@ $ sudo docker run \
     -e 'USERNAME=[username]' \
     -e 'PASSWORD=[password]' \
     -e 'COUNTRY=[country code]' \
+    -e 'PNET=[local network]' \
     rundqvist/docker-ipvanish-tinyproxy
-    
