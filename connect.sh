@@ -41,7 +41,7 @@ echo "$(tail -n 32 allowed-clients)" > allowed-clients
 #
 # Add allowed clients as remotes
 #
-find . -name "allowed-clients" -exec sed -n -e 's/^\(.*\)/remote \1 /p' {} \; >> config.ovpn
+find . -name "allowed-clients" -exec sed -n -e 's/^\(.*\)/remote \1 443/p' {} \; >> config.ovpn
 
 #
 # Randomize

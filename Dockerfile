@@ -1,6 +1,6 @@
 FROM	alpine:latest
 
-MAINTAINER	mattias.rundqvist@icloud.com
+LABEL maintainer="mattias.rundqvist@icloud.com"
 
 RUN	apk update && \
 	apk upgrade && \
@@ -25,6 +25,6 @@ RUN	mkdir config && \
 ENV	COUNTRY='NL'
 ENV	USERNAME=''
 ENV	PASSWORD=''
-ENV	PNET='192.168.0.0'
+ENV	PNET=''
 
 CMD	sh connect.sh
