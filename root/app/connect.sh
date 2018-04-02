@@ -38,6 +38,12 @@ sed -i '/verify-x509-name /d' config.ovpn
 find ./config/ -name "*${COUNTRY}*" -exec sed -n -e 's/^remote \(.*\) \(.*\)/\1/p' {} \; > allowed-clients
 echo "$(tail -n 32 allowed-clients)" > allowed-clients
 
+if [ ! -z "$PRIO_REMOTE" ]; then
+	echo "[INFO] Setting "$PRIO_REMOTE" as prio remote"
+	sed -i '/'$PRIO_REMOTE' /d' allowed-clients
+	sed -i '1s/^/'$PRIO_REMOTE'\n/' allowed-clients
+fi
+
 #
 # Add allowed clients as remotes
 #
@@ -46,7 +52,10 @@ find . -name "allowed-clients" -exec sed -n -e 's/^\(.*\)/remote \1 443/p' {} \;
 #
 # Randomize
 #
-echo 'remote-random' >>  config.ovpn
+if [ "$RANDOMIZE" = "true" ]; then
+	echo "[INFO] Randomizing remotes"
+	echo 'remote-random' >>  config.ovpn
+fi
 
 #
 # Connect

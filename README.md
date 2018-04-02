@@ -17,6 +17,8 @@ A small VPN client based on Alpine Linux.
 | PASSWORD | Your IPVanish password |
 | COUNTRY | ISO 3166-1 alpha-2 country code supported by IPVanish (see https://www.ipvanish.com/software/configs/) |
 | PNET | Add your local network like '192.168.0.0' to make container network accessible |
+| RANDOMIZE | If true, connects to random remote at connect |
+| PRIO_REMOTE | Sets specified remote as first connection attempt (does not work with RANDOMIZE=true) |
 
 ## Run
 ```
@@ -32,28 +34,9 @@ $ sudo docker run \
     -e 'PASSWORD=[password]' \
     -e 'COUNTRY=[country code]' \
     -e 'PNET=[local network]' \
+    -e 'RANDOMIZE=[true/false]' \
+    -e 'PRIO_REMOTE=[first remote to connect to]' \
     rundqvist/ipvanish-tinyproxy
-```
-
-## Build and run from source
-```
-$ sudo docker build -t rundqvist/docker-ipvanish-tinyproxy .
-```
-
-```
-$ sudo docker run \
-    -d \
-    --cap-add=NET_ADMIN \
-    --device=/dev/net/tun \
-    --name=vpn \
-    --dns 84.200.69.80 \
-    --dns 84.200.70.40 \
-    -p 8888:8888 \
-    -e 'USERNAME=[username]' \
-    -e 'PASSWORD=[password]' \
-    -e 'COUNTRY=[country code]' \
-    -e 'PNET=[local network]' \
-    rundqvist/docker-ipvanish-tinyproxy
 ```
 
 ## Use
