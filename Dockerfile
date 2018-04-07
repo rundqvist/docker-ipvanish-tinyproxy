@@ -23,4 +23,9 @@ ENV COUNTRY='NL' \
 	RANDOMIZE='true' \
 	PRIO_REMOTE=''
 
+EXPOSE 8888
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s \  
+ CMD /bin/sh /app/healthcheck.sh
+
 ENTRYPOINT [ "/app/connect.sh" ]
