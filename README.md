@@ -5,6 +5,8 @@ A small VPN client based on Alpine Linux.
 * Connect to random server
 * Reconnects if connection breaks
 * Http(s) proxy on port 8888 
+* Killswitch (container stops if no openvpn quits)
+* Docker health check
 
 ## Installed packages
 * OpenVPN
@@ -40,4 +42,5 @@ $ sudo docker run \
 ```
 
 ## Use
-Proxy your traffic through [docker server ip]:8888 or use --net container:vpn to containers who shall tunnel traffic.
+Proxy your traffic through [docker server ip]:8888 or use --net container:vpn on containers who shall tunnel traffic.  
+If using --net option, remember to configure PNET or network will not be reachable. Also, the ports you want to reach in the other container must be configured in the vpn container.
