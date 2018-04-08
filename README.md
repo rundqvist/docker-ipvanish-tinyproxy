@@ -1,14 +1,17 @@
 # Docker OpenVPN client for IPVanish
-A small VPN client based on Alpine Linux. 
+A small VPN client based on Alpine Linux.  
+https://hub.docker.com/r/rundqvist/ipvanish-tinyproxy/
 
 ## Features
 * Connect to random server
 * Reconnects if connection breaks
 * Http(s) proxy on port 8888 
 * Killswitch (container stops if no openvpn quits)
+* Compact (compressed size on dockerhub only 5 MB, running size 10 MB)
 * Docker health check
 
-## Installed packages
+## Components
+* Alpine Linux
 * OpenVPN
 * Tinyproxy
 
@@ -44,3 +47,6 @@ $ sudo docker run \
 ## Use
 Proxy your traffic through [docker server ip]:8888 or use --net container:vpn on containers who shall tunnel traffic.  
 If using --net option, remember to configure PNET or network will not be reachable. Also, the ports you want to reach in the other container must be configured in the vpn container.
+
+## Issues
+Please report issues at https://github.com/rundqvist/docker-ipvanish-tinyproxy/issues
