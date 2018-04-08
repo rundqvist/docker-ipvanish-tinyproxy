@@ -9,6 +9,11 @@ echo "$PASSWORD" >> auth.conf
 
 chmod 600 auth.conf
 
+HOSTIP=$(wget http://ipecho.net/plain -O - -q)
+RC=$?
+
+echo $RC":"$HOSTIP > hostip
+
 #
 # Make container accessible from private network
 #
