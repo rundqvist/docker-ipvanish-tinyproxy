@@ -9,7 +9,7 @@ echo "$PASSWORD" >> auth.conf
 
 chmod 600 auth.conf
 
-HOSTIP=$(wget http://ipecho.net/plain -O - -q)
+HOSTIP=$(wget http://api.ipify.org -O - -q)
 RC=$?
 
 echo $RC":"$HOSTIP > hostip

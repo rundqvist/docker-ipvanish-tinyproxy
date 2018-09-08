@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VPNIP=$(wget http://ipecho.net/plain -O - -q)
+VPNIP=$(wget http://api.ipify.org -O - -q)
 RC=$?
 HOSTIP=$(cat hostip)
 
