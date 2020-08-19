@@ -2,6 +2,11 @@
 A small VPN client based on Alpine Linux.  
 https://hub.docker.com/r/rundqvist/ipvanish-tinyproxy/
 
+# Appreciate my work?
+Do you find this container useful? Please consider a donation.
+* Flattr (https://flattr.com/@rundqvist)
+* Buy me a coffee (https://www.buymeacoffee.com/rundqvist)
+
 ## Features
 * Connect to random server
 * Reconnects if connection breaks
