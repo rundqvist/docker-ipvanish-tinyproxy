@@ -13,9 +13,12 @@ Do you find this container useful? Please consider a donation.
 * Connect to random server
 * Reconnects if connection breaks
 * Http(s) proxy on port 8888 
-* Killswitch (container stops if no openvpn quits)
+* Killswitch (container stops if openvpn quits)
 * Compact (compressed size on dockerhub only 5 MB, running size 10 MB)
 * Docker health check
+
+## Requirements
+* An IPVanish VPN account [![Sign up](https://img.shields.io/badge/Sign_up-IPVanish_VPN-6fbc44)](https://www.ipvanish.com/?a_bid=48f95966&a_aid=5f3eb2f0be07f)
 
 ## Components
 * Alpine Linux
