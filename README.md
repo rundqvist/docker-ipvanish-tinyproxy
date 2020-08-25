@@ -1,3 +1,17 @@
+### Please note: Image is replaced with improved version
+
+Please use the new image instead: [https://hub.docker.com/r/rundqvist/openvpn-tinyproxy](https://hub.docker.com/r/rundqvist/openvpn-tinyproxy).
+
+The new image is an improved version, it has matching features, support for more vpn providers and is actively developed.
+
+Alternatively, check out these images with similar functionality:
+* OpenVPN with SNI Proxy: [https://hub.docker.com/r/rundqvist/openvpn-sniproxy](https://hub.docker.com/r/rundqvist/openvpn-sniproxy)
+* OpenVPN only: [https://hub.docker.com/r/rundqvist/openvpn](https://hub.docker.com/r/rundqvist/openvpn)
+* SmartDNS for geo unblocking [https://hub.docker.com/r/rundqvist/smartdns](https://hub.docker.com/r/rundqvist/smartdns)
+
+This image will however not be deleted, so feel free to continue using it. But it has been discontinued and will not maintained.
+
+
 # Docker OpenVPN client for IPVanish
 A small VPN client based on Alpine Linux.
 
@@ -19,7 +33,7 @@ Do you find this container useful? Please consider a donation.
 * Docker health check
 
 ## Requirements
-* An IPVanish VPN account [![Sign up](https://img.shields.io/badge/Sign_up-IPVanish_VPN-6fbc44)](https://www.ipvanish.com/?a_bid=48f95966&a_aid=5f3eb2f0be07f)
+* An IPVanish VPN account [![Affiliate](https://img.shields.io/badge/Affiliate-IPVanish_VPN-6fbc44)](https://www.ipvanish.com/?a_bid=48f95966&a_aid=5f3eb2f0be07f)
 
 ## Components
 * Alpine Linux
