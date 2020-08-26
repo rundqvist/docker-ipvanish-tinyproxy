@@ -1,5 +1,8 @@
 #!/bin/sh
 
+chmod +x /app/upgrade.sh
+chmod +x /app/notice.sh
+
 : ${COUNTRY:?"-e COUNTRY='...' missing"}
 : ${USERNAME:?"-e USERNAME='...' missing"}
 : ${PASSWORD:?"-e PASSWORD='...' missing"}
@@ -62,6 +65,8 @@ if [ "$RANDOMIZE" = "true" ]; then
 	echo 'remote-random' >>  config.ovpn
 fi
 
+/app/notice.sh
+
 #
 # Connect
 #
@@ -70,4 +75,5 @@ openvpn \
 	--config config.ovpn \
 	--auth-user-pass auth.conf \
 	--mute-replay-warnings \
-	--tls-verify "tls-verify.sh allowed-clients"
+	--tls-verify "tls-verify.sh allowed-clients" \
+	--up /app/notice.sh

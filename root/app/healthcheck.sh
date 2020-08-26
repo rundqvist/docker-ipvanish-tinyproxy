@@ -5,18 +5,20 @@ RC=$?
 HOSTIP=$(cat hostip)
 
 if [ $RC -eq 1 ]; then
-    echo "Failed to resolve VPN IP"
+    echo "Failed to resolve VPN IP. "
     exit 1;
 fi
 
 if [[ ${HOSTIP:0:1} = "1" ]]; then
-    echo "Failed to resolve host IP"
+    echo "Failed to resolve host IP. "
     exit 1;
 fi
 
 if [ $RC":"$VPNIP = $HOSTIP ]; then
-	echo "VPN IP same as host IP"
+	echo "VPN IP same as host IP. "
 	exit 1;
 fi
+
+echo "Image has been discontinued. Check container log for upgrade options.";
 
 exit 0;
