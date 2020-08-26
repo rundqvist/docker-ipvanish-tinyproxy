@@ -36,6 +36,8 @@ fi
 
 if [ ! -z $PNET ] ; then
     echo "    -e 'NETWORK=$PNET' \\";
+else
+    echo "    -e 'NETWORK=ignore' \\";
 fi
 
 echo "    -e 'VPN_PROVIDER=ipvanish' \\";
