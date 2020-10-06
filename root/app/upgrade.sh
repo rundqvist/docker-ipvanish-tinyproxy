@@ -24,7 +24,7 @@ echo "sudo docker run \\";
 echo "    -d \\";
 echo "    --cap-add=NET_ADMIN \\";
 echo "    --device=/dev/net/tun \\";
-echo "    --name=openvpn-tinyproxy \\";
+echo "    --name=tinyproxy-openvpn \\";
 
 for ip in $DNS ; do
     echo "    --dns $ip \\";
@@ -36,8 +36,6 @@ fi
 
 if [ ! -z $PNET ] ; then
     echo "    -e 'NETWORK=$PNET' \\";
-else
-    echo "    -e 'NETWORK=ignore' \\";
 fi
 
 echo "    -e 'VPN_PROVIDER=ipvanish' \\";
@@ -45,7 +43,7 @@ echo "    -e 'VPN_USERNAME=$USERNAME' \\";
 echo "    -e 'VPN_PASSWORD=$PASSWORD' \\";
 echo "    -e 'VPN_COUNTRY=$COUNTRY' \\";
 echo "    -e 'VPN_RANDOM_REMOTE=$RANDOMIZE' \\";
-echo "    rundqvist/openvpn-tinyproxy";
+echo "    rundqvist/tinyproxy-openvpn";
 
 echo " ";
 echo " -------------------- "
