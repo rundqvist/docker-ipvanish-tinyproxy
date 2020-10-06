@@ -1,8 +1,10 @@
----
+----
+
 ### Note
-Image is replaced: [https://hub.docker.com/r/rundqvist/tinyproxy-openvpn](https://hub.docker.com/r/rundqvist/tinyproxy-openvpn).<br />
-Please find the doc's for the newer image below.
----
+Image is replaced with: [https://hub.docker.com/r/rundqvist/tinyproxy-openvpn](https://hub.docker.com/r/rundqvist/tinyproxy-openvpn).<br />
+Please find the doc's for the new image below.
+
+----
 
 # Docker OpenVPN container with Tinyproxy
 A user friendly container for proxying http(s)-traffic through vpn.
