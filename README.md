@@ -1,24 +1,16 @@
-# Docker OpenVPN client for IPVanish
-A small VPN client based on Alpine Linux.
-
-[![Docker pulls](https://img.shields.io/docker/pulls/rundqvist/ipvanish-tinyproxy.svg)](https://hub.docker.com/r/rundqvist/ipvanish-tinyproxy)
-
+---
+### Note
+Image is replaced: [https://hub.docker.com/r/rundqvist/tinyproxy-openvpn](https://hub.docker.com/r/rundqvist/tinyproxy-openvpn).<br />
+Please find the doc's for the newer image below.
 ---
 
-### Please note: Image is replaced with improved version
+# Docker OpenVPN container with Tinyproxy
+A user friendly container for proxying http(s)-traffic through vpn.
 
-Please use the new image instead: [https://hub.docker.com/r/rundqvist/openvpn-tinyproxy](https://hub.docker.com/r/rundqvist/openvpn-tinyproxy).
-
-The new image is an improved version, it has matching features, support for more vpn providers and is actively developed.
-
-Alternatively, check out these images with similar functionality:
-* OpenVPN with SNI Proxy: [https://hub.docker.com/r/rundqvist/openvpn-sniproxy](https://hub.docker.com/r/rundqvist/openvpn-sniproxy)
-* OpenVPN only: [https://hub.docker.com/r/rundqvist/openvpn](https://hub.docker.com/r/rundqvist/openvpn)
-* SmartDNS for geo unblocking [https://hub.docker.com/r/rundqvist/smartdns](https://hub.docker.com/r/rundqvist/smartdns)
-
-This image will however not be deleted, so feel free to continue using it. But it has been discontinued and will not maintained.
-
----
+[![Docker pulls](https://img.shields.io/docker/pulls/rundqvist/openvpn-tinyproxy.svg)](https://hub.docker.com/r/rundqvist/tinyproxy-openvpn)
+[![image size](https://img.shields.io/docker/image-size/rundqvist/tinyproxy-openvpn.svg)](https://hub.docker.com/r/rundqvist/tinyproxy-openvpn)
+[![commit activity](https://img.shields.io/github/commit-activity/m/rundqvist/docker-tinyproxy-openvpn)](https://github.com/rundqvist/docker-tinyproxy-openvpn)
+[![last commit](https://img.shields.io/github/last-commit/rundqvist/docker-tinyproxy-openvpn.svg)](https://github.com/rundqvist/docker-tinyproxy-openvpn)
 
 ## Do you find this container useful? 
 Please support the development by making a small donation.
@@ -28,32 +20,24 @@ Please support the development by making a small donation.
 [![Support](https://img.shields.io/badge/support-PayPal-blue)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SZ7J9JL9P5DGE&source=url)
 
 ## Features
+* Killswitch (kills network if vpn is down)
+* Proxies all http(s)-traffic through vpn
+* Self healing (restarts vpn if connection breaks down)
 * Connect to random server
-* Reconnects if connection breaks
-* Http(s) proxy on port 8888 
-* Killswitch (container stops if openvpn quits)
-* Compact (compressed size on dockerhub only 5 MB, running size 10 MB)
-* Docker health check
+* Healthcheck (checking that ip differs from public ip)
 
 ## Requirements
-* An [IPVanish](https://www.ipvanish.com/?a_bid=48f95966&a_aid=5f3eb2f0be07f) VPN account
+* A supported VPN account (currently [ipvanish](https://www.ipvanish.com/?a_bid=48f95966&a_aid=5f3eb2f0be07f) or [wevpn](https://www.wevpn.com/aff/rundqvist))
 
 [![Sign up](https://img.shields.io/badge/sign_up-IPVanish_VPN-6fbc44)](https://www.ipvanish.com/?a_bid=48f95966&a_aid=5f3eb2f0be07f)
+[![Sign up](https://img.shields.io/badge/sign_up-WeVPN-e33866)](https://www.wevpn.com/aff/rundqvist)
 
 ## Components
-* Alpine Linux
-* OpenVPN
-* Tinyproxy
-
-## Configuration
-| Variable | Usage |
-|----------|-------|
-| USERNAME | Your IPVanish username |
-| PASSWORD | Your IPVanish password |
-| COUNTRY | ISO 3166-1 alpha-2 country code supported by IPVanish (see https://www.ipvanish.com/software/configs/) |
-| PNET | Add your local network like '192.168.0.0' to make container network accessible |
-| RANDOMIZE | If true, connects to random remote at connect |
-| PRIO_REMOTE | Sets specified remote as first connection attempt (does not work with RANDOMIZE=true) |
+Built on [rundqvist/openvpn](https://hub.docker.com/r/rundqvist/openvpn) container.
+* [Alpine Linux](https://www.alpinelinux.org)
+* [Supervisor](https://github.com/Supervisor/supervisor)
+* [OpenVPN](https://github.com/OpenVPN/openvpn)
+* [Tinyproxy](https://tinyproxy.github.io)
 
 ## Run
 ```
@@ -61,22 +45,48 @@ $ sudo docker run \
     -d \
     --cap-add=NET_ADMIN \
     --device=/dev/net/tun \
-    --name=vpn \
-    --dns 84.200.69.80 \
-    --dns 84.200.70.40 \
-    -p 8888:8888 \
-    -e 'USERNAME=[username]' \
-    -e 'PASSWORD=[password]' \
-    -e 'COUNTRY=[country code]' \
-    -e 'PNET=[local network]' \
-    -e 'RANDOMIZE=[true/false]' \
-    -e 'PRIO_REMOTE=[first remote to connect to]' \
-    rundqvist/ipvanish-tinyproxy
+    --name=tinyproxy-openvpn \
+    --dns 1.1.1.1 \
+    --dns 1.0.0.1 \
+    -p [PORT]:8888 \
+    -e 'HOST_IP=[your server ip]' \
+    -e 'VPN_PROVIDER=[your vpn provider]' \
+    -e 'VPN_USERNAME=[your vpn username]' \
+    -e 'VPN_PASSWORD=[your vpn password]' \
+    -e 'VPN_COUNTRY=[your desired country]' \
+    -v /path/to/cache/folder:/cache/ \
+    rundqvist/tinyproxy-openvpn
 ```
 
-## Use
-Proxy your traffic through [docker server ip]:8888 or use --net container:vpn on containers who shall tunnel traffic.  
-If using --net option, remember to configure PNET or network will not be reachable. Also, the ports you want to reach in the other container must be configured in the vpn container.
+### Configuration
+See base image ([rundqvist/openvpn](https://hub.docker.com/r/rundqvist/openvpn)) for detailed vpn configuration.
+
+#### Variables
+
+| Variable | Usage |
+|----------|-------|
+| _PORT_ | Port for access to tinyproxy |
+| HOST_IP | IP of server on your local network (needed for communication between container and local network).  |
+| _VPN_PROVIDER_ | Your VPN provider ("[ipvanish](https://www.ipvanish.com/?a_bid=48f95966&a_aid=5f3eb2f0be07f)" or "[wevpn](https://www.wevpn.com/aff/rundqvist)"). |
+| _VPN_USERNAME_ | Your VPN username. |
+| _VPN_PASSWORD_ | Your VPN password. |
+| _VPN_COUNTRY_ | ISO 3166-1 alpha-2 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). |
+| VPN_KILLSWITCH | Kills network if vpn is down. <br />`true` (default) or `false`. |
+| VPN_INCLUDED_REMOTES | Host names separated by one space. VPN will _only_ connect to entered remotes. |
+| VPN_EXCLUDED_REMOTES | Host names separated by one space. VPN will _not_ connect to entered remotes. |
+| VPN_REMOTES_FILTER_MODE | If set, included/excluded-filtering of remotes resulting in an empty list will cause vpn to not connect. <br />`strict`, `strict-included` or `strict-excluded`. |
+| VPN_RANDOM_REMOTE | Connects to random remote. <br />`true` or `false` (default). |
+
+Variables in _cursive_ is mandatory.
+
+#### Volumes
+
+| Folder | Usage |
+|--------|-------|
+| /cache/ | Used for caching original configuration files from vpn provider |
+
+## Setup
+Configure your client to use `HOST_IP`:`PORT` as proxy.
 
 ## Issues
-Please report issues at https://github.com/rundqvist/docker-ipvanish-tinyproxy/issues
+Please report issues at https://github.com/rundqvist/docker-tinyproxy-openvpn/issues
